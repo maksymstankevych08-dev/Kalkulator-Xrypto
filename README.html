@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="pl">
+<html lang="uk">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kalkulator transakcji BTC</title>
+  <title> </title>
   <style>
     :root{--bg:#0f1724;--card:#0b1220;--accent:#06b6d4;--muted:#94a3b8;--glass: rgba(255,255,255,0.03)}
     html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,'Helvetica Neue',Arial;background:linear-gradient(180deg,#071024 0%,#071428 60%);color:#e6eef6}
@@ -34,31 +34,31 @@
   <div class="container">
     <header>
       <div>
-        <h1>Kalkulator transakcji BTC</h1>
-        <p class="lead">Wpisz daty, ceny i ilości — strona policzy kwoty, zysk/stratę i procenty.</p>
+        <h1>Калькулятор транзакцій BTC</h1>
+        <p class="lead">Введіть дати, ціни та кількість — сторінка порахує суми, прибуток/збиток і відсотки.</p>
       </div>
       <div class="actions">
-        <button id="addRow">Dodaj wiersz</button>
-        <button id="reset" class="ghost">Wyczyść</button>
+        <button id="addRow">Додати рядок</button>
+        <button id="reset" class="ghost">Очистити</button>
       </div>
     </header>
 
     <div class="card">
       <div class="controls">
-        <div class="small muted">Wpisuj ręcznie ceny BTC z momentu zakupu i sprzedaży. Kalkulator policzy resztę.</div>
+        <div class="small muted">Вводьте вручну ціни BTC на момент купівлі та продажу. Калькулятор порахує решту.</div>
       </div>
 
       <table id="txTable">
         <thead>
           <tr>
-            <th>Data zakupu</th>
-            <th>Cena zakupu (1 BTC)</th>
-            <th>Ilość BTC</th>
-            <th>Kwota zakupu</th>
-            <th>Data sprzedaży</th>
-            <th>Cena sprzedaży (1 BTC)</th>
-            <th>Kwota sprzedaży</th>
-            <th>Zysk/Strata</th>
+            <th>Дата купівлі</th>
+            <th>Ціна купівлі (1 BTC)</th>
+            <th>Кількість BTC</th>
+            <th>Сума купівлі</th>
+            <th>Дата продажу</th>
+            <th>Ціна продажу (1 BTC)</th>
+            <th>Сума продажу</th>
+            <th>Прибуток / Збиток</th>
             <th>%</th>
             <th></th>
           </tr>
@@ -69,46 +69,47 @@
 
       <div class="totals">
         <div class="tile">
-          <div class="small">Suma wydatków</div>
+          <div class="small">Загальні витрати</div>
           <div id="sumBuy">0</div>
         </div>
         <div class="tile">
-          <div class="small">Suma wpływów</div>
+          <div class="small">Загальні надходження</div>
           <div id="sumSell">0</div>
         </div>
         <div class="tile">
-          <div class="small">Łączny zysk / strata</div>
+          <div class="small">Загальний прибуток / збиток</div>
           <div id="sumProfit">0</div>
         </div>
         <div class="tile">
-          <div class="small">Średni % na transakcji</div>
+          <div class="small">Середній % за транзакціями</div>
           <div id="avgPct">0%</div>
         </div>
       </div>
 
     </div>
 
+
   </div>
 
   <script>
     function fmt(num){
       if(num === "" || num === null || isNaN(num)) return '';
-      return Number(num).toLocaleString('pl-PL', {minimumFractionDigits:2, maximumFractionDigits:2});
+      return Number(num).toLocaleString('uk-UA', {minimumFractionDigits:2, maximumFractionDigits:2});
     }
 
     function createRow(){
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td><input type="date" class="buyDate"></td>
-        <td><input type="number" class="buyPrice" step="0.01" min="0" placeholder="Cena BTC (zakup)"></td>
-        <td><input type="number" class="amount" step="0.00000001" min="0" placeholder="Ilość BTC"></td>
+        <td><input type="number" class="buyPrice" step="0.01" min="0" placeholder="Ціна BTC (купівля)"></td>
+        <td><input type="number" class="amount" step="0.00000001" min="0" placeholder="Кількість BTC"></td>
         <td class="right buyAmount"></td>
         <td><input type="date" class="sellDate"></td>
-        <td><input type="number" class="sellPrice" step="0.01" min="0" placeholder="Cena BTC (sprzedaż)"></td>
+        <td><input type="number" class="sellPrice" step="0.01" min="0" placeholder="Ціна BTC (продаж)"></td>
         <td class="right sellAmount"></td>
         <td class="right profit"></td>
         <td class="right pct"></td>
-        <td class="right"><button class="remove ghost">Usuń</button></td>
+        <td class="right"><button class="remove ghost">Видалити</button></td>
       `;
 
       tr.querySelectorAll('input').forEach(i => i.addEventListener('input', computeAll));
